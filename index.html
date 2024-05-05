@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hill Cipher</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="hillcipher.png">
+    <meta name="description" content="Simple hill cipher encrypt/decrypt">
+</head>
+
+<body>
+    <div class="content">
+        <h2>Hill Cipher</h2>
+        <label for="character-set">Character Set:</label>
+        <input type="text" id="character-set" value="abcdefghijklmnopqrstuvwxyz">
+        <br>
+        <label for="key">Key:</label>
+        <input type="text" id="key" value="fccb">
+        <br>
+        <label for="plaintext">Plaintext:</label>
+        <textarea id="plaintext" rows="5" placeholder="Plaintext here:"></textarea>
+        <br>
+        <label for="ciphertext">Ciphertext:</label>
+        <textarea id="ciphertext" rows="5" placeholder="Ciphertext here:"></textarea>
+        <br>
+        <div id="message"></div>
+        <button id="encrypt">Encrypt</button>
+        <button id="decrypt">Decrypt</button>
+    </div>
+
+    <footer>
+            Made by <a href="https://omkargn.com" target="_blank">Omkar</a>
+            <br><a href="https://github.com/randusr923847/hillcipher" target="_blank">Github</a>
+    </footer>
+
+
+    <script src="index.js"></script>
+</body>
+
+</html>
