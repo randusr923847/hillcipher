@@ -16,14 +16,14 @@ Number.prototype.mod = function(n)
 function matmul(a, b)
 {
    let prod = [];
-   let trans = transverse(b);
+   let trans = transpose(b);
 
    for (let r = 0; r < a.length; r++)
    {
       let row = [];
       for (let c = 0; c < trans.length; c++)
       {
-         row[c] = dotprod(a[r], b[c]);
+         row[c] = dotprod(a[r], trans[c]);
       }
       prod[r] = row;
    }
@@ -41,7 +41,7 @@ function dotprod(a, b)
    return sum;
 }
 
-function transverse(arr)
+function transpose(arr)
 {
    return arr[0].map((_, col) => arr.map(row => row[col]));
 }
@@ -131,8 +131,8 @@ function modInverse(a, m, x)
 {
    if (gcd(a, m) !== 1)
    {
-      notify("No mod inverse: gcd(determinatn, m) must be 1.", 1);
-      throw new Error("No mod inverse: gcd(determinatn, m) must be 1.");
+      notify("No mod inverse: gcd(determinant, m) must be 1.", 1);
+      throw new Error("No mod inverse: gcd(determinant, m) must be 1.");
    }
 
    if ((a * x).mod(m) == 1)
@@ -152,8 +152,8 @@ function modInverse2x2(arr, m)
 {
    if (!Array.isArray(arr) || arr.length !== 2 || !arr.every(row => row.length === 2))
    {
-      notify("Invalid input: key must be a 4 characters.", 1);
-      throw new Error("Invalid input: key must be a 4 characters.");
+      notify("Invalid input: key must be a 4 characters long.", 1);
+      throw new Error("Invalid input: key must be a 4 characters long.");
    }
 
    let a = arr[0][0];
@@ -188,17 +188,48 @@ function notify(m, type)
 function encrypt(plaintext, key)
 {
    let keyarr = str2arr(key, width);
+   console.log("Key Matrix:");
+   console.log(keyarr);
+
    let plainarr = str2arr(plaintext, width);
+   console.log("Plaintext Matrix:");
+   console.log(plainarr);
+
    modInverse2x2(keyarr, modulo); //to check if key has inverse
-   let cipharr = applymod(matmul(plainarr, keyarr), modulo);
+
+   let mult = matmul(plainarr, keyarr);
+   console.log("Matrix Multiplication:");
+   console.log(mult);
+
+   let cipharr = applymod(mult, modulo);
+   console.log("Ciphertext Matrix:");
+   console.log(cipharr);
+
    return arr2str(cipharr);
 }
 
 function decrypt(ciphertext, key)
 {
-   let keyarr = modInverse2x2(str2arr(key, width), modulo);
+   let keyarr = str2arr(key, width);
+   console.log("Key Matrix:");
+   console.log(keyarr);
+
+   keyarr = modInverse2x2(keyarr, modulo);
+   console.log("Key Inverse Matrix:");
+   console.log(keyarr);
+
    let cipharr = str2arr(ciphertext, width);
-   let plainarr = applymod(matmul(cipharr, keyarr), modulo);
+   console.log("Ciphertext Matrix:");
+   console.log(cipharr);
+
+   let mult = matmul(cipharr, keyarr);
+   console.log("Matrix Multiplication:");
+   console.log(mult);
+
+   let plainarr = applymod(mult, modulo);
+   console.log("Plaintext Matrix:");
+   console.log(plainarr);
+
    return arr2str(plainarr);
 }
 
