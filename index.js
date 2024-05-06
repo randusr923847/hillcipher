@@ -250,6 +250,7 @@ encbtn.onclick = function()
    }
    else
    {
+      console.log("Encrypting:");
       let ciph = encrypt(plain.value, keytxt);
       cipher.value = ciph;
       notify("Encrypted!", 0);
@@ -273,6 +274,7 @@ decbtn.onclick = function()
    }
    else
    {
+      console.log("Decrypting:");
       let pln = decrypt(cipher.value, keytxt);
       plain.value = pln;
       notify("Decrypted!", 0);
